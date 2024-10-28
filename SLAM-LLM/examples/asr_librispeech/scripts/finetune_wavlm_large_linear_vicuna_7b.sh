@@ -11,15 +11,15 @@ export OMP_NUM_THREADS=1
 # export NCCL_DEBUG_SUBSYS=ALL
 # export TORCH_DISTRIBUTED_DEBUG=INFO
 
-run_dir=/Users/luyuhao/SLAM-LLM
+run_dir=/home/lu.yuhao/demo1/SLAM-LLM
 cd $run_dir
 code_dir=examples/asr_librispeech
 
-speech_encoder_path=/Users/luyuhao/SLAM-LLM/examples/asr_librispeech/models/wavlm/WavLM-Large.pt
-llm_path=/Users/luyuhao/SLAM-LLM/examples/asr_librispeech/models/TinyLlama-1.1B-Chat-v1.0
-train_data_path=/Users/luyuhao/SLAM-LLM/examples/asr_librispeech/data/train_data.jsonl
-val_data_path=//Users/luyuhao/SLAM-LLM/examples/asr_librispeech/data/validation_data.jsonl
-output_dir=/Users/luyuhao/SLAM-LLM/vicuna-7b-v1.5-librispeech-linear-steplrwarmupkeep1e-4-wavlm-large-$(date +"%Y%m%d")
+speech_encoder_path=microsoft/wavlm-large #/home/lu.yuhao/demo1/SLAM-LLM/src/slam_llm/models/WavLM-Large.pt
+llm_path=TinyLlama/TinyLlama-1.1B-Chat-v1.0
+train_data_path=/home/lu.yuhao/demo1/SLAM-LLM/examples/asr_librispeech/data/train_data.jsonl
+val_data_path=/home/lu.yuhao/demo1/SLAM-LLM/examples/asr_librispeech/data/validation_data.jsonl
+output_dir=/home/lu.yuhao/demo1/SLAM-LLM/vicuna-7b-v1.5-librispeech-linear-steplrwarmupkeep1e-4-wavlm-large-$(date +"%Y%m%d")
 
 hydra_args="
 hydra.run.dir=$output_dir \
@@ -68,7 +68,7 @@ else
         --config-path "conf" \
         --config-name "prompt.yaml" \
         ++train_config.enable_fsdp=false \
-        ++train_config.enable_ddp=true \
+        ++train_config.enable_ddp=false \
         ++train_config.use_fp16=true \
         $hydra_args
 fi
